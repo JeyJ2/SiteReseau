@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Basket - ABasket{% endblock %}
+
+{% block body %}
+<div style="height: 15vh"></div>
+<section class="container mt-5 mb-4">
+<h1 class="text-center text-muted">Nouveau Evenement</h1>
+<div class="row">
+  <div class="col-md-5 mx-auto">
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="alert alert-{{ label }}">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
+    {{ form(formulaire) }}
+  </div>
+</div>
+</section>
+{% endblock %}

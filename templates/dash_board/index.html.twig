@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Hello DashBoardController!
+{% endblock %}
+
+{% block body %}
+  <div style="height: 15vh"></div>
+  <table class="table">
+    <h1>Liste des utilisateurs</h1>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {% for user in users %}
+        <tr>
+          <th scope="row">{{ user.id }}</th>
+          {% if 'ROLE_ADMIN' in user.roles %}
+            <td>
+              <a href="#" class="btn btn-success">Admin</a>
+            </td>
+          {% else %}
+            <td>membre</td>
+          {% endif %}
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Supprimer</a>
+            <a href="#" class="btn btn-warning">Modifier</a>
+          </td>
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ user.id }}" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel{{ user.id }}">Supprimer l'utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">Êtes-vous sûr de vouloir supprimer l'utilisateur {{ user.firstName }} {{ user.lastName }} ?</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a  href="{{ path('app_dash_board_delete', {'id': user.id}) }}" class="btn btn-danger">Confirmer la suppression</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <script>
+  // Récupérer la référence du bouton "Supprimer"
+  var deleteButton = document.querySelector('.btn-danger');
+
+  // Ajouter un écouteur d'événement pour le clic sur le bouton "Supprimer"
+  deleteButton.addEventListener('click', function () {
+    // Afficher le modal en utilisant JavaScript de base
+    var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+  });
+</script>
+{% endblock %}

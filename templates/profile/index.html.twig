@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<div style="height: 15vh"></div>
+<section style="min-height: 75vh">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Fiche de profil</h3>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Prénom :</dt>
+            <dd class="col-sm-8">{{ app.user.firstname }}</dd>
+            
+            <dt class="col-sm-4">Nom :</dt>
+            <dd class="col-sm-8">{{ app.user.lastname }}</dd>
+            
+            <dt class="col-sm-4">Adresse e-mail :</dt>
+            <dd class="col-sm-8">{{ app.user.email }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Liste des événements</h3>
+        </div>
+        <div class="card-body">
+          {% for event in events %}
+          <dl class="row">
+            <dt class="col-sm-4">Evenement :</dt>
+            <dd class="col-sm-8">{{ event.title }}|| date : {{ event.date | date('Y-m-d') }}</dd>
+            
+            <dt class="col-sm-4">Adresse :</dt>
+            <dd class="col-sm-8">{{event.address}}{{ event.city }}</dd>
+            
+            <dt class="col-sm-4">Informations</dt>
+            <dd class="col-sm-8">{{event.description}}</dd>
+          </dl>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Nofications</h3>
+        </div>
+        <div class="card-body">
+          {% for notif in notifications %}
+          <dl class="row">
+            <dt class="col-sm-4">Notification :</dt>
+            <dd class="col-sm-8">date : {{ notif.createdAt | date('Y-m-d') }}</dd>
+            
+            <dt class="col-sm-4">Message</dt>
+            <dd class="col-sm-8">{{notif.message}}</dd>
+          </dl>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+{% endblock %}
